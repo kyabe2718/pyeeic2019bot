@@ -12,14 +12,14 @@ import assignment_notify
 def main():
     WIKI_URL = "https://wiki.eeic.jp"
     API_URL = WIKI_URL + "/api.php"
-    bot_username = os.environ.get('BOT_USERNAME')
-    bot_password = os.environ.get('BOT_PASSWORD')
+    bot_username = os.environ['BOT_USERNAME']
+    bot_password = os.environ['BOT_PASSWORD']
     session = wiki.MediaWikiSession(API_URL, bot_username, bot_password)
     page_name = 'EEIC2018/課題一覧'
 
     # slackBotとassingment_notify_mgrを用意
     # botを別スレッドでスタート
-    api_token = os.environ.get('API_TOKEN')
+    api_token = os.environ['API_TOKEN']
     bot = eeic_bot.SlackBot(API_TOKEN=api_token)
     assignment_notify_mgr = assignment_notify.AssignmentListMgr(session, page_name)
 
