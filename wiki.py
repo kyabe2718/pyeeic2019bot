@@ -50,14 +50,3 @@ class MediaWikiSession:
             content = pages[page_id]['revisions'][0]['*']
             return content
         return False
-
-
-def getEEICWikiSession():
-    import json
-    WIKI_URL = "https://wiki.eeic.jp"
-    API_URL = WIKI_URL + "/api.php"
-    file = open('user_info.json')
-    user_info = json.load(file)
-    file.close()
-    session = MediaWikiSession(API_URL, user_info['wiki']['bot_username'], user_info['wiki']['bot_password'])
-    return session
