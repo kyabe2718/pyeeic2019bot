@@ -5,10 +5,13 @@ import schedule
 import atexit
 import subprocess
 
-import init
-
 
 def main():
+
+    res = subprocess.check_output(['curl', 'inet-ip.info'])
+    print("global ip is ", res)
+
+    import init
 
     # スケジューラにタスクを登録
     #   10分毎にassignment_notify_mgrを更新する
@@ -23,8 +26,6 @@ def main():
     init.bot.postMessage("#dev_bot" ,"生き返った！！")
     print("all initialized\n")
 
-    res = subprocess.check_output(['curl', 'inet-ip.info'])
-    print("global ip is ", res)
 
     while True:
         schedule.run_pending()
