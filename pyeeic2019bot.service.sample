@@ -1,0 +1,13 @@
+[Unit]
+Description = pyeeic2019bot
+After=local-fs.target
+ConditionPathExists=/opt/pyeeic2019bot/bin
+
+[Service]
+ExecStart=/opt/pyeeic2019bot/bin/main.py
+Restart=always
+Type=simple
+
+
+[Install]
+WantedBy=multi-user.target
