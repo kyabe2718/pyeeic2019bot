@@ -8,7 +8,7 @@ is_first = True
 if is_first:
     WIKI_URL = "https://wiki.eeic.jp"
     API_URL = WIKI_URL + "/api.php"
-    f = open("user_info.json")
+    f = open( os.path.dirname(os.path.abspath(__file__)) + "/user_info.json")
     import json
     user_info = json.load(f)
     f.close()
