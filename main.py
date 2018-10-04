@@ -9,7 +9,7 @@ import subprocess
 def main():
 
     res = subprocess.check_output(['curl', 'inet-ip.info'])
-    print("global ip is ", res)
+    print("global ip is ", res.decode('utf-8'))
 
     import init
 
@@ -23,7 +23,7 @@ def main():
     schedule.every().saturday.at("17:00").do(init.postNextWeekAssignment)
 
     atexit.register(init.atDeath)   # プログラム終了時に呼ばれる関数を登録
-    init.bot.postMessage("#dev_bot" ,"生き返った！！")
+    init.bot.postMessage("#dev_bot" ,"生き返った！！\nglobal ip is ", res.decode('utf-8'))
     print("all initialized\n")
 
 
