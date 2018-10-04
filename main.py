@@ -7,9 +7,6 @@ import signal
 import subprocess
 import sys
 
-def handler(signum, frame):
-    init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: "+ str(signum))
-    sys.exit()
 
 def main():
 
@@ -28,6 +25,11 @@ def main():
     schedule.every().saturday.at("17:00").do(init.postNextWeekAssignment)
 
     atexit.register(lambda : init.bot.postMessage('#dev_bot', "正常終了！！"))   # プログラム終了時に呼ばれる関数を登録
+
+    def handler(signum, frame):
+        init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: "+ str(signum))
+        sys.exit()
+
     signal.signal(signal.SIGTERM, handler )
     signal.signal(signal.SIGINT, handler )
 
