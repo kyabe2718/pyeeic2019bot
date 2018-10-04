@@ -11,7 +11,7 @@ class SlackBot:
         self.client = SlackClient(API_TOKEN)
         self.channel_list = self.getChannelList()
         self.bot = Bot()
-        self.auto_replybot_thread = threading.Thread(target=self.bot.run, daemon=False)
+        self.auto_replybot_thread = threading.Thread(target=self.bot.run, daemon=True)  # メインスレッド終了時に終了するように
         self.auto_replybot_thread.start()
 
     def getChannelList(self):
