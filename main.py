@@ -5,6 +5,7 @@ import schedule
 import atexit
 import signal
 import subprocess
+import sys
 
 def handler(signum, frame):
     init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: "+ str(signum)
