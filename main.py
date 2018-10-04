@@ -6,10 +6,10 @@ import atexit
 import signal
 import subprocess
 import sys
+import datetime
 
 
 def main():
-
     res = subprocess.check_output(['curl', 'inet-ip.info'])
     print("global ip is ", res.decode('utf-8'))
 
@@ -26,22 +26,22 @@ def main():
 
     def atExit():
         print("atExit")
-        init.bot.postMessage('#dev_bot', "正常終了！！")
+        init.bot.postMessage('#dev_bot', "正常終了！！\n" + str(datetime.datetime.now()))
         sys.exit()
 
-
-    atexit.register(atExit)   # プログラム終了時に呼ばれる関数を登録
+    atexit.register(atExit)  # プログラム終了時に呼ばれる関数を登録
 
     def handler(signum, frame):
         print("handler")
-        init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: "+ str(signum))
+        init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: " + str(signum) + "\n" + str(datetime.datetime.now()))
+        sys.exit()
 
-    signal.signal(signal.SIGTERM, handler )
-    signal.signal(signal.SIGINT, handler )
+    signal.signal(signal.SIGTERM, handler)
+    signal.signal(signal.SIGINT, handler)
 
-    init.bot.postMessage("#dev_bot" ,"生き返った！！\nglobal ip is " + res.decode('utf-8'))
+    init.bot.postMessage("#dev_bot",
+                         "生き返った！！\nglobal ip is " + res.decode('utf-8') + "\n" + str(datetime.datetime.now()))
     print("all initialized\n")
-
 
     while True:
         schedule.run_pending()

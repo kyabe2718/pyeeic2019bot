@@ -21,12 +21,21 @@ def TommorowAssignment(message):
 def NextWeekAssignment(message):
     message.reply(init.getNextWeekAssignmentMessage())
 
+
+@respond_to(r'.*更新.*いつ.*')
+@respond_to(r'.*いつ.*更新.*')
+def lastUpdateTime(message):
+    last_update_time = init.assignment_notify_mgr.last_update_time
+    message.reply('最後に更新したのは' + str(last_update_time) + 'です')
+
+
 @respond_to(r'.*課題.*更新.*')
 def updateAssignmentList(message):
     init.assignment_notify_mgr.updateAssignmentList()
     message.reply('更新しました')
 
-@respond_to(r'.*占って.*')
+
+@respond_to(r'.*占.*')
 @respond_to(r'.*うらなって.*')
 def divine(message):
     num = random.randint(1, 7)

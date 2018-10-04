@@ -94,10 +94,12 @@ class AssignmentListMgr:
         self.page_name = page_name
         content = self.wiki_session.getPageContent(self.page_name)
         self.assignment_list = AssignmentList(content)
+        self.last_update_time = datetime.now(tz=JST)
 
     def updateAssignmentList(self):
         content = self.wiki_session.getPageContent(self.page_name)
         self.assignment_list = AssignmentList(content)
+        self.last_update_time = datetime.now(tz=JST)
 
     def getNotDeadlineAssignmentList(self):
         # 今日から一年後まで
