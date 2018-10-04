@@ -53,13 +53,24 @@ class AssignmentList:
             deadline_day_match = deadline_day_pattern.match(line)
             deadline_detail_match = deadline_detail_pattern.match(line)
             is_something_written = (line != '')
+            if not is_something_written:
+                continue
             if subject == '' and not subject_match:
                 # まだ教科名が来ていないなら，何もせず次の行へ
                 continue
             if subject_match:
+                if 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys():
+                    # assignmentの条件が揃った状態で次の科目に来たら,課題を登録する
+                    data[subject].append(assignment)
+                    assignment = {}
                 subject = subject_match.group(1)
-                data[subject] = []
+                if subject not in data.keys():
+                    data[subject] = []
             elif assignment_match:
+                if 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys():
+                    # assignmentの条件が揃った状態で次の課題に来たら,課題を登録する
+                    data[subject].append(assignment)
+                    assignment = {}
                 assignment['assignment_title'] = assignment_match.group(1)
             elif deadline_day_match:
                 dt = datetime.strptime(deadline_day_match.group(1), '%Y-%m-%d')
@@ -71,9 +82,9 @@ class AssignmentList:
                     assignment['something_written'] = line
                 else:
                     assignment['something_written'] += line
-            if 'assignment_title' in assignment.keys() and 'deadline_day' in assignment.keys() and 'deadline_detail' in assignment.keys():
-                data[subject].append(assignment)
-                assignment = {}
+        # assignmentの条件が揃った状態で一番最後に来たら,課題を登録する
+        if 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys():
+            data[subject].append(assignment)
         return data
 
     def getAssignmentListSinceUntil(self, since: date, until: date):
@@ -128,3 +139,14 @@ def parseAssignmentList(assignment_list):
             if 'something_written' in assignment.keys():
                 s += "   補足 " + assignment['something_written'] + "\n"
     return s
+
+
+"""
+if __name__ == "__main__":
+    f = open("test.txt")
+    content = f.read()
+    list = AssignmentList(content)
+    import pprint
+
+    pprint.pprint(list.list)
+    """
