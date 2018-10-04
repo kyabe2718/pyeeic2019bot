@@ -3,6 +3,7 @@
 import time
 import schedule
 import atexit
+import signal
 import subprocess
 
 
@@ -22,7 +23,9 @@ def main():
 
     schedule.every().saturday.at("17:00").do(init.postNextWeekAssignment)
 
-    atexit.register(init.atDeath)   # プログラム終了時に呼ばれる関数を登録
+    atexit.register(lambda : init.bot('#dev_bot', "正常終了！！"))   # プログラム終了時に呼ばれる関数を登録
+    signal.signal(signal.SIGTERM, lambda signum , frame: init.bot.postMessage('#dev_bot', "signalに殺された！！ signum:", str(signum)))
+
     init.bot.postMessage("#dev_bot" ,"生き返った！！\nglobal ip is " + res.decode('utf-8'))
     print("all initialized\n")
 

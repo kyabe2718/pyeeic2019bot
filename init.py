@@ -64,6 +64,3 @@ def getNextWeekAssignmentMessage():
 def postNextWeekAssignment():
     bot.postMessage("#assignment", getNextWeekAssignmentMessage())
 
-def atDeath():
-    bot.postMessage("#dev_bot", "死んだ！！")
-
