@@ -21,9 +21,10 @@ def TommorowAssignment(message):
 def NextWeekAssignment(message):
     message.reply(init.getNextWeekAssignmentMessage())
 
-@respond_to(r'更新')
+@respond_to(r'.*課題.*更新.*')
 def updateAssignmentList(message):
     init.assignment_notify_mgr.updateAssignmentList()
+    message.reply('更新しました')
 
 @respond_to(r'.*占って.*')
 @respond_to(r'.*うらなって.*')
