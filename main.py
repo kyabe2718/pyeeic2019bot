@@ -8,9 +8,8 @@ import subprocess
 import sys
 
 def handler(signum, frame):
-    init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: "+ str(signum)
-    sys.exit(0)
-
+    init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: "+ str(signum))
+    sys.exit()
 
 def main():
 
