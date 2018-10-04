@@ -25,15 +25,17 @@ def main():
     schedule.every().saturday.at("17:00").do(init.postNextWeekAssignment)
 
     def atExit():
-        print("atExit")
+        print("atExit is called")
         init.bot.postMessage('#dev_bot', "正常終了！！\n" + str(datetime.datetime.now()))
+        print("send message and exit")
         sys.exit()
 
     atexit.register(atExit)  # プログラム終了時に呼ばれる関数を登録
 
     def handler(signum, frame):
-        print("handler")
+        print("handler is called")
         init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: " + str(signum) + "\n" + str(datetime.datetime.now()))
+        print("send message and exit")
         sys.exit()
 
     signal.signal(signal.SIGTERM, handler)
