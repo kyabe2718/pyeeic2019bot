@@ -36,9 +36,9 @@ if is_first:
 def getTommorowAssignmentMessage():
     tommorow_assignment = assignment_notify_mgr.getTommorowAssignmentList()
     assignment_str = assignment_notify.parseAssignmentList(tommorow_assignment)
-    message = "明日の課題をお知らせします．\n"
+    message = "明日の課題をお知らせするよ！\n"
     if assignment_str == "":
-        message += "明日の課題はありません."
+        message += "明日の課題は無いよ！やったね！"
     else:
         message += assignment_str
     return message
@@ -52,9 +52,9 @@ def postTommorowAssignment():
 def getNextWeekAssignmentMessage():
     assignment = assignment_notify_mgr.getNextWeekAssignmentList()
     assignment_str = assignment_notify.parseAssignmentList(assignment)
-    message = "来週の課題をお知らせします．\n"
+    message = "来週の課題をお知らせするよ！\n"
     if assignment_str == "":
-        message += "来週の課題はありません."
+        message += "来週の課題はないよ！やったね！"
     else:
         message += assignment_str
     return message
