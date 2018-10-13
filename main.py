@@ -8,6 +8,7 @@ import subprocess
 import sys
 import datetime
 
+dev_channel_name = "#8-dev_bot"
 
 def main():
     res = subprocess.check_output(['curl', 'inet-ip.info'])
@@ -26,7 +27,7 @@ def main():
 
     def atExit():
         print("atExit is called")
-        init.bot.postMessage('#dev_bot', "正常終了！！\n" + str(datetime.datetime.now()))
+        init.bot.postMessage(dev_channel_name, "正常終了！！\n" + str(datetime.datetime.now()))
         print("send message and exit")
         sys.exit()
 
@@ -34,14 +35,14 @@ def main():
 
     def handler(signum, frame):
         print("handler is called")
-        init.bot.postMessage('#dev_bot', "signalに殺された！！ signum: " + str(signum) + "\n" + str(datetime.datetime.now()))
+        init.bot.postMessage(dev_channel_name, "signalに殺された！！ signum: " + str(signum) + "\n" + str(datetime.datetime.now()))
         print("send message and exit")
         sys.exit()
 
     signal.signal(signal.SIGTERM, handler)
     signal.signal(signal.SIGINT, handler)
 
-    init.bot.postMessage("#dev_bot",
+    init.bot.postMessage(dev_channel_name,
                          "生き返った！！\nglobal ip is " + res.decode('utf-8') + "\n" + str(datetime.datetime.now()))
     print("all initialized\n")
 

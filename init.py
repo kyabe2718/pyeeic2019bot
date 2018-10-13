@@ -43,10 +43,11 @@ def getTommorowAssignmentMessage():
         message += assignment_str
     return message
 
+assignment_channel_name = "#0-assignment"
 
 #   明日の課題を投稿する
 def postTommorowAssignment():
-    bot.postMessage("#assignment", getTommorowAssignmentMessage())
+    bot.postMessage(assignment_channel_name, getTommorowAssignmentMessage())
 
 
 def getNextWeekAssignmentMessage():
@@ -62,5 +63,5 @@ def getNextWeekAssignmentMessage():
 
 #   来週の課題を投稿する
 def postNextWeekAssignment():
-    bot.postMessage("#assignment", getNextWeekAssignmentMessage())
+    bot.postMessage(assignment_channel_name, getNextWeekAssignmentMessage())
 
