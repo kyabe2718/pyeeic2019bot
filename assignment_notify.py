@@ -81,7 +81,7 @@ class AssignmentList:
                 if 'something_written' not in assignment.keys():
                     assignment['something_written'] = line
                 else:
-                    assignment['something_written'] += line
+                    assignment['something_written'] += '\n' + line
         # assignmentの条件が揃った状態で一番最後に来たら,課題を登録する
         if 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys() and 'assignment_title' in assignment.keys():
             data[subject].append(assignment)
