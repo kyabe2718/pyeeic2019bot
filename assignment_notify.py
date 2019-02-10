@@ -140,13 +140,3 @@ def parseAssignmentList(assignment_list):
                 s += "   補足 " + assignment['something_written'] + "\n"
     return s
 
-
-"""
-if __name__ == "__main__":
-    f = open("test.txt")
-    content = f.read()
-    list = AssignmentList(content)
-    import pprint
-
-    pprint.pprint(list.list)
-    """

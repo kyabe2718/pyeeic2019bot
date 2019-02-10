@@ -30,6 +30,7 @@ def lastUpdateTime(message):
 
 
 @respond_to(r'.*課題.*更新.*')
+@respond_to(r'.*更新.*課題.*')
 def updateAssignmentList(message):
     init.assignment_notify_mgr.updateAssignmentList()
     message.reply('更新したよ！')
@@ -39,14 +40,11 @@ def updateAssignmentList(message):
 @respond_to(r'.*うらなって.*')
 def divine(message):
     fortune_result = [
-        'キミの運勢は吉だよ',
-        'キミの運勢は小吉だよ',
-        'キミの運勢は中吉だよ',
-        'キミの運勢は大吉だよ.今日一日ハッピーなことがたくさんあるよ！',
-        'キミの運勢は凶だよ',
-        'キミの運勢は大凶だよ.気をつけてね',
-        '占いをしてる暇があったら勉強しようね！！',
-        'ちゃんと勉強してる？',
+        'キミの成績は:huka:だよ．ちゃんと勉強してる？',
+        'キミの成績は:ka:だよ',
+        'キミの成績は:ryo:だよ',
+        'キミの成績は:yu:だよ．:pro:',
+        'キミの成績は:yuujo:だよ．:gachi-pro::clap::clap:',
     ]
     message.reply(random.choice(fortune_result))
 
@@ -55,7 +53,7 @@ def default(message):
     reply_list = [
         "うーん、なにを言ってるかわからないや！",
         "ごめんね、ボクは難しいことはわからないんだ...",
-        "もうちょっとわかりやすく言ってほしいな"
+        "もうちょっとわかりやすく言ってほしいな",
+        "難しいことを理解してほしかったら自然言語処理を実装して",
     ]
     message.reply(random.choice(reply_list))
-    pass

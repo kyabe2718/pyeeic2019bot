@@ -23,7 +23,7 @@ def main():
 
     schedule.every().day.at("17:00").do(init.postTommorowAssignment)
 
-    schedule.every().saturday.at("17:00").do(init.postNextWeekAssignment)
+    schedule.every().saturday.at("12:00").do(init.postNextWeekAssignment)
 
     def atExit():
         print("atExit is called")
@@ -35,7 +35,7 @@ def main():
 
     def handler(signum, frame):
         print("handler is called")
-        init.bot.postMessage(dev_channel_name, "signalに殺された！！ signum: " + str(signum) + "\n" + str(datetime.datetime.now()))
+        init.bot.postMessage(dev_channel_name, "signal handler signum: " + str(signum) + "\nnow time: " + str(datetime.datetime.now()))
         print("send message and exit")
         sys.exit()
 
@@ -43,7 +43,7 @@ def main():
     signal.signal(signal.SIGINT, handler)
 
     init.bot.postMessage(dev_channel_name,
-                         "生き返った！！\nglobal ip is " + res.decode('utf-8') + "\n" + str(datetime.datetime.now()))
+            "start.\nglobal ip is " + res.decode('utf-8') + "\nnow time: " + str(datetime.datetime.now()))
     print("all initialized\n")
 
     while True:

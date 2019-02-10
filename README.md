@@ -9,9 +9,12 @@
 python3とpipをインストールしたあとこのリポジトリをcloneして、以下のコマンドを実行します。
 
  $ pip3 install -r requirements.txt
+
  $ python3 main.py
 
 ただし，slackがbotのアクセスをglobal ipのホワイトリストで制限しているため，おそらく使えません．
+
+現在，Herokuのipしか登録してません．
 
 slackにアクセスするためのapi tokenやwikiアクセスのためのユーザー名，パスワードは
 API_TOKEN, BOT_USERNAME, BOT_PASSWORDというkeyで環境変数にする，もしくはこのディレクトリにuser_info.jsonという名前でjson形式で書いたものを用意してください

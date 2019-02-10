@@ -36,32 +36,39 @@ if is_first:
 def getTommorowAssignmentMessage():
     tommorow_assignment = assignment_notify_mgr.getTommorowAssignmentList()
     assignment_str = assignment_notify.parseAssignmentList(tommorow_assignment)
-    message = "明日の課題をお知らせするよ！\n"
     if assignment_str == "":
-        message += "明日の課題は無いよ！やったね！"
+        return ""
     else:
-        message += assignment_str
-    return message
+        message = assignment_str
+        return message
 
 assignment_channel_name = "#0-assignment"
 
 #   明日の課題を投稿する
+#   @param flag 課題が無かった場合，何もしないか
 def postTommorowAssignment():
-    bot.postMessage(assignment_channel_name, getTommorowAssignmentMessage())
+    message = "明日の課題をお知らせするよ！\n"
+    assignment_msg = getTommorowAssignmentMessage()
+    if assignment_msg == "":
+        return
+    bot.postMessage(assignment_channel_name, message + assignment_msg)
 
 
 def getNextWeekAssignmentMessage():
     assignment = assignment_notify_mgr.getNextWeekAssignmentList()
     assignment_str = assignment_notify.parseAssignmentList(assignment)
-    message = "来週の課題をお知らせするよ！\n"
     if assignment_str == "":
-        message += "来週の課題はないよ！やったね！"
+        return ""
     else:
-        message += assignment_str
-    return message
+        return assignment_str
 
 
 #   来週の課題を投稿する
+#   @param flag 課題が無かった場合，Trueなら無いことを通知する Falseなら何もしない
 def postNextWeekAssignment():
-    bot.postMessage(assignment_channel_name, getNextWeekAssignmentMessage())
+    message = "来週の課題をお知らせするよ！\n"
+    assignment_msg = getNextWeekAssignmentMessage()
+    if assignment_msg == "":
+        return
+    bot.postMessage(assignment_channel_name, message + assignment_msg)
 
