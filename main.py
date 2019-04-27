@@ -7,8 +7,10 @@ import signal
 import subprocess
 import sys
 import datetime
+import assignment_notify
 
 dev_channel_name = "#8-dev_bot"
+
 
 def main():
     res = subprocess.check_output(['curl', 'inet-ip.info'])
@@ -19,7 +21,15 @@ def main():
     # スケジューラにタスクを登録
     #   10分毎にassignment_notify_mgrを更新する
 
-    schedule.every(10).minutes.do(init.assignment_notify_mgr.updateAssignmentList)
+    def update_assignment_list():
+        new_assignment = init.assignment_notify_mgr.updateAssignmentList()
+        init.bot.postMessage(dev_channel_name, "new assignment: " + str(new_assignment))
+        if len(new_assignment) != 0:
+            msg = "新しく課題が追加されたよ！\n"
+            msg += assignment_notify.parseAssignmentList(new_assignment)
+            init.bot.postMessage(dev_channel_name, msg)
+
+    schedule.every(10).minutes.do(update_assignment_list)
 
     schedule.every().day.at("17:00").do(init.postTommorowAssignment)
 
@@ -35,7 +45,8 @@ def main():
 
     def handler(signum, frame):
         print("handler is called")
-        init.bot.postMessage(dev_channel_name, "signal handler signum: " + str(signum) + "\nnow time: " + str(datetime.datetime.now()))
+        init.bot.postMessage(dev_channel_name,
+                             "signal handler signum: " + str(signum) + "\nnow time: " + str(datetime.datetime.now()))
         print("send message and exit")
         sys.exit()
 
@@ -43,7 +54,7 @@ def main():
     signal.signal(signal.SIGINT, handler)
 
     init.bot.postMessage(dev_channel_name,
-            "start.\nglobal ip is " + res.decode('utf-8') + "\nnow time: " + str(datetime.datetime.now()))
+                         "start.\nglobal ip is " + res.decode('utf-8') + "\nnow time: " + str(datetime.datetime.now()))
     print("all initialized\n")
 
     while True:

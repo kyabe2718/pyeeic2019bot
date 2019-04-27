@@ -62,6 +62,14 @@ def getNextWeekAssignmentMessage():
     else:
         return assignment_str
 
+def getNotDeadlineAssignmentMessage():
+    assignment = assignment_notify_mgr.getNotDeadlineAssignmentList()
+    assignment_str = assignment_notify.parseAssignmentList(assignment)
+    if assignment_str == "":
+        return ""
+    else:
+        return assignment_str
+
 
 #   来週の課題を投稿する
 #   @param flag 課題が無かった場合，Trueなら無いことを通知する Falseなら何もしない

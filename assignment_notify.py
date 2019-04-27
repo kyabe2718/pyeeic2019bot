@@ -109,8 +109,25 @@ class AssignmentListMgr:
 
     def updateAssignmentList(self):
         content = self.wiki_session.getPageContent(self.page_name)
-        self.assignment_list = AssignmentList(content)
+        new_assignment_list = AssignmentList(content)
+
+        new_assignment = {}
+        for subject, assignments in new_assignment_list.list.items():
+            if subject not in self.assignment_list.list.keys():
+                new_assignment[subject] = assignments
+                continue
+
+            for assignment in assignments:
+                if assignment not in self.assignment_list.list[subject]:
+                    if subject not in new_assignment:
+                        new_assignment[subject] = [assignment]
+                    else:
+                        new_assignment[subject].append(assignment)
+        print(new_assignment)
+
+        self.assignment_list = new_assignment_list
         self.last_update_time = datetime.now(tz=JST)
+        return new_assignment
 
     def getNotDeadlineAssignmentList(self):
         # 今日から一年後まで

@@ -5,6 +5,9 @@ from slackbot.bot import listen_to  # チャンネル内発言に反応する
 from slackbot.bot import default_reply  #
 import init
 import random
+import pprint
+import assignment_notify
+import subprocess
 
 
 @respond_to('こんにちは')
@@ -14,12 +17,42 @@ def hello_func(message):
 
 @respond_to(r'.*明日.*課題.*')
 def TommorowAssignment(message):
-    message.reply(init.getTommorowAssignmentMessage())
+    print("明日の課題を聞かれました")
+    msg = init.getTommorowAssignmentMessage()
+    if msg == "":
+        message.reply("明日の課題は無いよ")
+    else:
+        message.reply(msg)
 
 
 @respond_to(r'.*来週.*課題.*')
 def NextWeekAssignment(message):
-    message.reply(init.getNextWeekAssignmentMessage())
+    print("来週の課題を聞かれました")
+    msg = init.getNextWeekAssignmentMessage()
+    if msg == "":
+        message.reply("来週の課題は無いよ")
+    else:
+        message.reply(msg)
+
+
+@respond_to(r'.*今後.*課題.*')
+def NextWeekAssignment(message):
+    print("今後の課題を聞かれました")
+    msg = init.getNotDeadlineAssignmentMessage()
+    if msg == "":
+        message.reply("今後の課題は無いよ")
+    else:
+        message.reply(msg)
+
+
+@respond_to(r'.*課題.*一覧.*')
+def all_assignment(message):
+    print("課題の一覧を聞かれました")
+    msg = assignment_notify.parseAssignmentList(init.assignment_notify_mgr.assignment_list.list)
+    if msg == "":
+        message.reply("課題は無いよ")
+    else:
+        message.reply(msg)
 
 
 @respond_to(r'.*更新.*いつ.*')
@@ -32,8 +65,14 @@ def lastUpdateTime(message):
 @respond_to(r'.*課題.*更新.*')
 @respond_to(r'.*更新.*課題.*')
 def updateAssignmentList(message):
-    init.assignment_notify_mgr.updateAssignmentList()
-    message.reply('更新したよ！')
+    new_assignment = init.assignment_notify_mgr.updateAssignmentList()
+    msg = "更新したよ！\n"
+    if len(new_assignment) == 0:
+        msg += "新しく追加された課題は無いよ"
+    else:
+        msg += "新しく追加された課題は以下だよ\n"
+        msg += assignment_notify.parseAssignmentList(new_assignment)
+    message.reply(msg)
 
 
 @respond_to(r'.*占.*')
@@ -48,6 +87,13 @@ def divine(message):
     ]
     message.reply(random.choice(fortune_result))
 
+@respond_to(r'whoareyou')
+def my_data(message):
+    res1 = subprocess.check_output(['curl', 'inet-ip.info'])
+    res2 = subprocess.check_output(['pwd'])
+    message.reply(res1.decode('utf-8') + "\n" + res2.decode('utf-8'))
+    pass
+
 @default_reply()
 def default(message):
     reply_list = [
@@ -57,3 +103,4 @@ def default(message):
         "難しいことを理解してほしかったら自然言語処理を実装して",
     ]
     message.reply(random.choice(reply_list))
+
